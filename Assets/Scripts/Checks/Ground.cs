@@ -1,12 +1,11 @@
 using UnityEngine;
 
-namespace BHS
+namespace BHSCamp
 {
     public class Ground : MonoBehaviour
     {
         public bool OnGround { get; private set; }
         public float Friction { get; private set; }
-		public Vector2 LastNormal { get; private set; }
 
         private Vector2 _normal;
         private PhysicsMaterial2D _material;
@@ -14,7 +13,6 @@ namespace BHS
         private void OnCollisionExit2D(Collision2D collision)
         {
             OnGround = false;
-            LastNormal = new Vector2(0, 0);
             Friction = 0;
         }
 
@@ -35,22 +33,20 @@ namespace BHS
             for (int i = 0; i < collision.contactCount; i++)
             {
                 _normal = collision.GetContact(i).normal;
-				
-                if (_normal.y >= 0.9f) {
-					OnGround = true;	
-					LastNormal = _normal;
-				}
+                OnGround |= _normal.y >= 0.6f;
             }
         }
 
         private void RetrieveFriction(Collision2D collision)
         {
-			Friction = 0;
-			
-			if (!collision.rigidbody) return;
+            Friction = 0;
+
+            if (collision.rigidbody == null)
+                return;
+
             _material = collision.rigidbody.sharedMaterial;
 
-            
+
             if(_material != null)
             {
                 Friction = _material.friction;
