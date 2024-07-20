@@ -29,6 +29,7 @@ namespace BHSCamp
 
         protected override void InitializeStates()
         {
+            // кроме состояний родительского класса(PatrolEnemy) добавляем состояние атаки
             base.InitializeStates();
             _fsm.AddState(new AttackState(_fsm, this, _attack));
         }

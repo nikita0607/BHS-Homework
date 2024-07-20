@@ -32,7 +32,7 @@ namespace BHSCamp
                 Quaternion.identity,
                 _projectileParent
             );
-            projectile.SetDirection(toTarget); 
+            projectile.SetDirection(toTarget);
         }
     }
 }

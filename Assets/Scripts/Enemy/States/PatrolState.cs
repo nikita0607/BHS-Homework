@@ -56,15 +56,8 @@ namespace BHSCamp
 
         private void CheckForPlayer()
         {
-            
-            // STEP 3: Реализуйте логику:
-            // Если противник является атакующим И игрок в его зоне видимости:
-            //     Переходим в состояние атаки
-            //
-            if (_enemy is EnemyWithAttack && ((EnemyWithAttack)_enemy).PlayerInSight())
+            if (_enemy is EnemyWithAttack e && e.PlayerInSight())
                 Fsm.SetState<AttackState>();
-            // 
-            // STEP 4: Реализуйте такую же логику в состоянии IdleState
         }
     }
 }

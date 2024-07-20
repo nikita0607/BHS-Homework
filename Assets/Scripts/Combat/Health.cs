@@ -26,7 +26,7 @@ namespace BHSCamp
         {
             if (amount < 0) //нельзя нанести отрицательный урон
                 throw new ArgumentOutOfRangeException($"Damage amount can't be negative!: {gameObject.name}");
-
+            Debug.Log($"Take Damage : {amount}");
             _currentHealth -= amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth); //здоровье не может быть < 0
 
@@ -40,12 +40,12 @@ namespace BHSCamp
             }
         }
 
-        public void TakeHeal(int amount) {
-            if (amount < 0) //нельзя восстановить отрицательное здоровье
-                throw new ArgumentOutOfRangeException($"Heal amount can't be negative!: {gameObject.name}");
-
-            _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth); //здоровье не может быть > MaxHealth
-
+        public void Heal(int amount)
+        {
+            if (amount < 0) // нельзя захилить отрицательное кол-во хп
+                throw new ArgumentOutOfRangeException($"amount should be positive: {gameObject.name}");
+            _currentHealth += amount;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
             OnHealed?.Invoke(amount);
         }
     }

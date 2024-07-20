@@ -14,7 +14,6 @@ namespace BHSCamp
         [SerializeField] protected float _staggerTime;
         [SerializeField] protected bool _respawn;
         [SerializeField] protected float _respawnTime;
-        [SerializeField] protected int _respawnHealAmount;
 
         protected Rigidbody2D _body;
         protected Health _health;
@@ -53,7 +52,7 @@ namespace BHSCamp
             _fsm.AddState(new PatrolState(_fsm, this, _patrolSpeed, _waypoints));
             _fsm.AddState(new HurtState(_fsm, this, _staggerTime));
             _fsm.AddState(new IdleState(_fsm, this, _idleTime));
-            _fsm.AddState(new DeadState(_fsm, this, _health, _respawn, _respawnTime, _respawnHealAmount));
+            _fsm.AddState(new DeadState(_fsm, this, _respawn, _respawnTime));
         }
 
         private void Update()

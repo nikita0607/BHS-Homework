@@ -1,8 +1,8 @@
-﻿namespace BHSCamp
+namespace BHSCamp
 {
-    //интерфейс для взаимодействиями с объектами, которым можно нанести урон
+    //интерфейс для взаимодействиями с объектами, которых можно полечить
     public interface IHealable
     {
-        void TakeHeal(int amount);
+        void Heal(int amount);
     }
 }
