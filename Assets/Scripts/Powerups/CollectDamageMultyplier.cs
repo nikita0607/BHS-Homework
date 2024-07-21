@@ -6,6 +6,7 @@ namespace BHSCamp
     {
         [SerializeField] private int _damageMultiplier;
         private Health _health;
+        private bool _hited;
 
         public override void Apply(GameObject target)
         {
@@ -14,9 +15,15 @@ namespace BHSCamp
                 return;
             
             _health.OnDamageTaken += DamageMultiplier;
+            _hited = false;
         }
 
         public void DamageMultiplier(int damage) {
+            if (_hited) {
+                _hited = false;
+                return;
+            }
+            _hited = true;
             _health.TakeDamage(damage*_damageMultiplier-damage);
         }
 

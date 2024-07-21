@@ -43,7 +43,15 @@ namespace BHSCamp
         {
             RaycastHit2D hit = CheckPlayerHit();
             if (!hit) return false;
-            return hit.collider.GetComponent<IDamageable>() != null;
+            Debug.Log(CheckCanSeePlayer(hit.collider.gameObject));
+            return hit.collider.GetComponent<IDamageable>() != null && CheckCanSeePlayer(hit.collider.gameObject);
+        }
+
+        public virtual bool CheckCanSeePlayer(GameObject target) {
+            GetComponent<Collider2D>().enabled = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position-transform.position);
+            GetComponent<Collider2D>().enabled = true;
+            return hit.collider.gameObject == target;
         }
 
         public virtual RaycastHit2D CheckPlayerHit()
@@ -60,6 +68,7 @@ namespace BHSCamp
                 0,
                 _playerLayerMask
             );
+
             return hit;
         }
 
