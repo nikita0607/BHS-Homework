@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BHSCamp
@@ -49,8 +50,17 @@ namespace BHSCamp
 
         public virtual bool CheckCanSeePlayer(GameObject target) {
             GetComponent<Collider2D>().enabled = false;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position-transform.position);
+
+            Vector2 hitStart = transform.position;
+            Vector3 targetColliderOffset = target.GetComponent<Collider2D>().offset;
+            Vector2 hitDirection = (targetColliderOffset+target.transform.position-transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(hitStart, hitDirection);
+
+            Debug.DrawLine(hitStart, hitStart+hitDirection*_attackRange.x);
+
             GetComponent<Collider2D>().enabled = true;
+
+            Debug.Log(hit.collider.gameObject);
             return hit.collider.gameObject == target;
         }
 
