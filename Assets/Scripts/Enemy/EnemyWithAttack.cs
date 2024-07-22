@@ -54,13 +54,16 @@ namespace BHSCamp
             Vector2 hitStart = transform.position;
             Vector3 targetColliderOffset = target.GetComponent<Collider2D>().offset;
             Vector2 hitDirection = (targetColliderOffset+target.transform.position-transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(hitStart, hitDirection);
+            float hitDistance = Mathf.Sqrt(Mathf.Pow(_attackRange.x, 2) + Mathf.Pow(_attackRange.y, 2));
+            RaycastHit2D hit = Physics2D.Raycast(hitStart, hitDirection, hitDistance, _playerLayerMask);
 
-            Debug.DrawLine(hitStart, hitStart+hitDirection*_attackRange.x);
+            Debug.DrawLine(hitStart, hitStart+hitDirection*hitDistance);
 
             GetComponent<Collider2D>().enabled = true;
 
             Debug.Log(hit.collider.gameObject);
+
+            if (!hit.collider.gameObject) return false;
             return hit.collider.gameObject == target;
         }
 
